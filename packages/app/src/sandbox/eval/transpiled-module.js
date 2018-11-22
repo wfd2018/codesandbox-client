@@ -400,7 +400,11 @@ export default class TranspiledModule {
         }
       },
       addDependency: (depPath: string, options = {}) => {
-        if (depPath.startsWith('codesandbox-api')) {
+        if (
+          depPath === '@mdx-js/mdx' ||
+          depPath === '@mdx-js/tag' ||
+          depPath.startsWith('codesandbox-api')
+        ) {
           return;
         }
 
@@ -824,6 +828,14 @@ export default class TranspiledModule {
           const os = require('os-browserify');
           os.homedir = () => '/home/sandbox';
           return os;
+        }
+
+        if (path === '@mdx-js/mdx') {
+          return resolveDependency(path, manager.externals);
+        }
+
+        if (path === '@mdx-js/tag') {
+          return resolveDependency(path, manager.externals);
         }
 
         if (bfsModule) {

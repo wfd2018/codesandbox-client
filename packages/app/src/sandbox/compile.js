@@ -560,7 +560,7 @@ async function compile({
           managerModuleToTranspile.code &&
           managerModuleToTranspile.code.includes('React');
 
-        if (isReact && evalled) {
+        if (evalled) {
           // initiate boilerplates
           if (getBoilerplates().length === 0) {
             try {
