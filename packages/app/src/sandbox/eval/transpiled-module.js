@@ -17,7 +17,6 @@ import type { WarningStructure } from './transpilers/utils/worker-warning-handle
 
 import resolveDependency from './loaders/dependency-resolver';
 import evaluate from './loaders/eval';
-import isESModule from './utils/is-es-module';
 
 import type { default as Manager } from './manager';
 import HMR from './hmr';
@@ -322,9 +321,13 @@ export default class TranspiledModule {
       isAbsolute: boolean,
       isEntry: boolean,
     },
-    isTranspilationDep = false
+    isTranspilationDep: boolean = false
   ) {
     if (depPath.startsWith('codesandbox-api')) {
+      return;
+    }
+
+    if (manager.preloadedDependencies[depPath]) {
       return;
     }
 
@@ -462,8 +465,8 @@ export default class TranspiledModule {
         transpiledModule =
           transpiledModule ||
           manager.addTranspiledModule(moduleCopy, queryPath.join('!'));
-        // this.childModules.push(transpiledModule);
 
+        this.childModules.push(transpiledModule);
         this.dependencies.add(transpiledModule);
         transpiledModule.initiators.add(this);
 
@@ -572,8 +575,12 @@ export default class TranspiledModule {
     this.transpilationDependencies.forEach(tModule => {
       tModule.transpilationInitiators.delete(this);
     });
+    this.childModules.forEach(tModule => {
+      tModule.dispose(manager);
+    });
     this.dependencies.clear();
     this.transpilationDependencies.clear();
+    this.childModules.length = 0;
     this.errors = [];
     this.warnings = [];
 
@@ -877,12 +884,8 @@ export default class TranspiledModule {
           return os;
         }
 
-        if (path === '@mdx-js/mdx') {
-          return resolveDependency(path, manager.externals);
-        }
-
-        if (path === '@mdx-js/tag') {
-          return resolveDependency(path, manager.externals);
+        if (manager.preloadedDependencies[path]) {
+          return manager.preloadedDependencies[path];
         }
 
         if (bfsModule) {

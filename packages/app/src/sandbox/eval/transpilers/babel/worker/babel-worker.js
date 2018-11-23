@@ -285,6 +285,7 @@ self.addEventListener('message', async event => {
   if (type !== 'compile') {
     return;
   }
+  console.log(path);
 
   const { disableCodeSandboxPlugins } = loaderOptions;
 

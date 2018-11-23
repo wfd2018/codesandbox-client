@@ -58,8 +58,6 @@ export type Manifest = {
   },
 };
 
-const relativeRegex = /^(\/|\.)/;
-
 const NODE_LIBS = ['dgram', 'net', 'tls', 'fs', 'module', 'child_process'];
 // For these dependencies we don't want to follow along with the `browser` field
 const SKIPPED_BROWSER_FIELD_DEPENDENCIES = ['babel-core', '@babel/core'].reduce(
@@ -122,6 +120,8 @@ export default class Manager {
   // All paths are resolved at least twice: during transpilation and evaluation.
   // We can improve performance by almost 2x in this scenario if we cache the lookups
   cachedPaths: { [path: string]: { [path: string]: string } };
+
+  preloadedDependencies: { [path: string]: any } = {};
 
   configurations: Configurations;
 
@@ -264,6 +264,12 @@ export default class Manager {
     }
     throw err;
   };
+
+  addPreloadedDependency(dependency: string, module: any) {
+    if (!this.manifest.dependencies[dependency]) {
+      this.preloadedDependencies[dependency] = module;
+    }
+  }
 
   setStage = (stage: Stage) => {
     this.stage = stage;

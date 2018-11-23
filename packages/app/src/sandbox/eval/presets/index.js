@@ -6,6 +6,9 @@ import type { Module } from '../entities/module';
 import type Manager from '../manager';
 import Transpiler from '../transpilers';
 
+import { BabelTranspiler } from '../transpilers/babel';
+import { MDXTranspiler } from '../transpilers/mdx';
+
 export type TranspiledModule = Module & {
   transpiledCode: string,
 };
@@ -89,6 +92,32 @@ export default class Preset {
     this.teardown = teardown || noop;
     this.preEvaluate = preEvaluate || noop;
     this.htmlDisabled = htmlDisabled || false;
+
+    this.registerTranspiler(module => /\.mdx?$/.test(module.path), [
+      { transpiler: new MDXTranspiler() },
+      {
+        transpiler: new BabelTranspiler(1),
+        options: {
+          isV7: true,
+          config: { plugins: [], presets: ['env', 'react'] },
+        },
+      },
+      {
+        transpiler: new class extends Transpiler {
+          doTranspilation(code, context) {
+            return Promise.resolve({
+              transpiledCode: code.replace(
+                'exports.default = MDXContent;',
+                `
+exports.default = ${JSON.stringify(context._module.module.code)};
+exports.__csbMdx = MDXContent;
+            `.trim()
+              ),
+            });
+          }
+        }(),
+      },
+    ]);
   }
 
   setAdditionalAliases = (aliases: Object) => {
@@ -159,7 +188,7 @@ export default class Preset {
   registerTranspiler(
     test: (module: Module) => boolean,
     transpilers: Array<TranspilerDefinition>,
-    prepend: boolean = false
+    prepend?: boolean = false
   ) {
     const transpilerObject = {
       test,

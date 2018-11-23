@@ -57,7 +57,7 @@ class Preview extends React.Component<Props, State> {
       () => this.props.store.editor.currentModule,
       () => {
         if (!this.props.store.editor.isInProjectView) {
-          this.handleCodeChange(preview);
+          this.handleModuleChange(preview);
         }
       }
     );
@@ -163,6 +163,14 @@ class Preview extends React.Component<Props, State> {
 
   handleDependenciesChange = preview => {
     preview.handleDependenciesChange();
+  };
+
+  handleModuleChange = preview => {
+    if (!this.props.store.editor.isInProjectView) {
+      requestAnimationFrame(() => {
+        preview.executeCodeImmediately();
+      });
+    }
   };
 
   handleCodeChange = preview => {
