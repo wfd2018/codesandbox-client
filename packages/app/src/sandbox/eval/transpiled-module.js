@@ -639,6 +639,8 @@ export default class TranspiledModule {
           code = transpiledCode;
           finalSourceMap = sourceMap;
         } catch (e) {
+          delete manager.transpileJobs[this.getId()];
+
           e.fileName = loaderContext.path;
           e.tModule = this;
           this.resetTranspilation();
@@ -712,12 +714,17 @@ export default class TranspiledModule {
       ])
     );
 
+    delete manager.transpileJobs[this.getId()];
+
     return this;
   }
 
   evaluate(
     manager: Manager,
-    { asUMD = false }: { asUMD: boolean } = {},
+    {
+      asUMD = false,
+      inScope = false,
+    }: { asUMD: boolean, inScope: booleam } = {},
     initiator?: TranspiledModule
   ) {
     if (this.source == null) {
@@ -952,7 +959,7 @@ export default class TranspiledModule {
         this.compilation,
         manager.envVariables,
         globals,
-        { asUMD }
+        { asUMD, inScope }
       );
 
       /* eslint-disable no-param-reassign */
