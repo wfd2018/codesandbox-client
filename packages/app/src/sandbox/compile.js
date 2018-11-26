@@ -293,6 +293,7 @@ async function updateManager(
   manifest,
   configurations,
   isNewCombination,
+  entry,
   hasFileResolver
 ) {
   let newManager = false;
@@ -314,7 +315,9 @@ async function updateManager(
   }
 
   manager.updateConfigurations(configurations);
+  manager.updateLastEntry(entry);
   await manager.preset.setup(manager);
+
   return manager.updateData(managerModules).then(x => {
     changedModuleCount = x.length;
   });
@@ -478,6 +481,7 @@ async function compile({
         manifest,
         configurations,
         isNewCombination,
+        entry,
         hasFileResolver
       )) || [];
 
