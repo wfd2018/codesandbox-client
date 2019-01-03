@@ -14,6 +14,7 @@ export default new Template(
       '/.babelrc': configurations.babelrc,
     },
     isServer: true,
+    popular: true,
     mainFile: ['/pages/index.vue'],
     showOnHomePage: true,
     main: true,

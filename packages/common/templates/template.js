@@ -34,6 +34,7 @@ export default class Template {
   color: () => string;
   backgroundColor: ?() => string;
 
+  popular: boolean;
   showOnHomePage: boolean;
   distDir: string;
   configurationFiles: {
@@ -59,6 +60,7 @@ export default class Template {
     this.shortid = shortid;
     this.color = color;
 
+    this.popular = options.popular || false;
     this.isServer = options.isServer || false;
     this.main = options.main || false;
     this.showOnHomePage = options.showOnHomePage || false;

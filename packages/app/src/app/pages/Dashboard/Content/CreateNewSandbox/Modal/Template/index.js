@@ -3,7 +3,7 @@ import getIcon from 'common/templates/icons';
 
 import { Container, IconContainer, Title, SubTitle } from './elements';
 
-export default ({ template, subtitle, width, selectTemplate, small }) => {
+export default ({ template, subtitle, selectTemplate, small }) => {
   const Icon = getIcon(template.name);
 
   const select = () => selectTemplate(template);
@@ -14,7 +14,6 @@ export default ({ template, subtitle, width, selectTemplate, small }) => {
     <Container
       onClick={select}
       color={template.color}
-      width={width}
       onKeyDown={e => {
         if (e.keyCode === 13) {
           select();
