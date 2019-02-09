@@ -1,17 +1,11 @@
 import getTemplate from 'common/templates';
 
-const nowURL = 'http://localhost:8080';
+const nowURL = 'https://now-deploy.now.sh';
 
 export function createZip({ utils, state }) {
   const sandboxId = state.get('editor.currentId');
   const sandbox = state.get(`editor.sandboxes.${sandboxId}`);
   return utils.getZip(sandbox).then(result => ({ file: result.file }));
-}
-
-export function loadZip({ props, jsZip }) {
-  const { file } = props;
-
-  return jsZip.loadAsync(file).then(result => ({ contents: result }));
 }
 
 export async function aliasDeployment({ http, path, props, state }) {
@@ -32,22 +26,19 @@ export async function aliasDeployment({ http, path, props, state }) {
 }
 
 export async function postToZeit({ http, path, props, state }) {
-  const { contents } = props;
+  const { file } = props;
   const token = state.get('user.integrations.zeit.token');
   const sandboxId = state.get('editor.currentId');
   const sandbox = state.get(`editor.sandboxes.${sandboxId}`);
-  const template = getTemplate(sandbox.template);
-
+  const { distDir } = getTemplate(sandbox.template);
   try {
     const { result } = await http.request({
-      url: `${nowURL}/deployments?token=${token}`,
-      body: {
-        contents,
-        sandbox,
-        template,
-      },
+      url: `${nowURL}/deployments?token=${token}&id=${sandboxId}&distDir=${distDir}`,
       method: 'POST',
-      headers: { 'Content-type': 'multipart/formdata' },
+      body: file,
+      headers: {
+        'Content-Type': 'application/zip',
+      },
     });
 
     const url = `https://${result.url}`;
