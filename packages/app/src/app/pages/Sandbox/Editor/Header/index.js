@@ -48,12 +48,12 @@ const Header = ({ store, signals }) => {
 
         <Action
           onClick={() => signals.editor.forkSandboxClicked()}
-          title="Fork"
+          content="Fork"
           Icon={Fork}
         />
 
         <Action
-          title="Share"
+          content="Share"
           Icon={ShareIcon}
           onClick={() =>
             signals.modalOpened({
@@ -64,7 +64,7 @@ const Header = ({ store, signals }) => {
 
         {store.user && store.user.curatorAt ? (
           <Action
-            title="Pick"
+            content="Pick"
             Icon={() => (
               <span role="img" aria-label="star">
                 ✨
@@ -93,7 +93,7 @@ const Header = ({ store, signals }) => {
               store.editor.isAllModulesSynced ? 'All modules are saved' : false
             }
             blink={store.editor.changedModuleShortids.length > 2}
-            title="Save"
+            content="Save"
             tooltip="Save Modified Files"
             Icon={Save}
           />
@@ -236,7 +236,7 @@ const Header = ({ store, signals }) => {
           ) : (
             <Action
               onClick={() => signals.signInClicked()}
-              title="Sign in with GitHub"
+              content="Sign in with GitHub"
               Icon={GithubIcon}
               highlight
               unresponsive

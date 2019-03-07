@@ -1,6 +1,5 @@
 import styled, { keyframes, css } from 'styled-components';
 import { Link } from 'react-router-dom';
-import Tooltip from 'common/lib/components/Tooltip';
 
 const blink = keyframes`
 	0% {color: ${props =>
@@ -57,20 +56,6 @@ export const Title = styled.span`
 
 export const Action = styled.div`
   ${styles};
-`;
-
-export const ActionLink = styled(Link)`
-  ${styles};
-  text-decoration: none;
-`;
-
-export const ActionA = styled.a`
-  ${styles};
-  text-decoration: none;
-`;
-
-export const ActionTooltip = styled(Tooltip)`
-  ${styles};
   ${props =>
     props.disabledAction &&
     css`
@@ -83,6 +68,16 @@ export const ActionTooltip = styled(Tooltip)`
           : 'rgba(255,255,255,0.4)'};
       }
     `};
+`;
+
+export const ActionLink = styled(Link)`
+  ${styles};
+  text-decoration: none;
+`;
+
+export const ActionA = styled.a`
+  ${styles};
+  text-decoration: none;
 `;
 
 export const IconContainer = styled.div`

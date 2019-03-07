@@ -1,27 +1,21 @@
 import React from 'react';
-
+import Tooltip from 'common/lib/components/Tooltip';
 import MoreInfoIcon from 'react-icons/lib/md/arrow-drop-down';
 
-import {
-  Title,
-  Action,
-  ActionLink,
-  ActionA,
-  ActionTooltip,
-  IconContainer,
-} from './elements';
+import { Title, Action, ActionLink, ActionA, IconContainer } from './elements';
 
 function ActionComponent({
   onClick,
   href,
   Icon,
-  title,
+  content,
   tooltip,
   highlight,
   placeholder,
   moreInfo,
   unresponsive,
   a,
+  blink,
   iconProps = {},
   iconContainerProps = {},
   children,
@@ -29,30 +23,31 @@ function ActionComponent({
 }) {
   if (!href && (placeholder || tooltip)) {
     return (
-      <ActionTooltip
-        disabledAction={!onClick}
-        title={placeholder || tooltip}
-        hideOnClick={false}
-        {...props}
-      >
-        <IconContainer onClick={onClick} {...iconContainerProps}>
-          <Icon {...iconProps} />
-          {title !== undefined && (
-            <Title unresponsive={unresponsive}>{title}</Title>
-          )}
-          {moreInfo && <MoreInfoIcon style={{ fontSize: '1.1rem' }} />}
-        </IconContainer>
-        {children}
-      </ActionTooltip>
+      <Action disabledAction={!onClick} blink={blink}>
+        <Tooltip
+          content={placeholder || tooltip}
+          hideOnClick={false}
+          {...props}
+        >
+          <IconContainer onClick={onClick} {...iconContainerProps}>
+            <Icon {...iconProps} />
+            {content !== undefined && (
+              <Title unresponsive={unresponsive}>{content}</Title>
+            )}
+            {moreInfo && <MoreInfoIcon style={{ fontSize: '1.1rem' }} />}
+          </IconContainer>
+          {children}
+        </Tooltip>
+      </Action>
     );
   }
   if (onClick) {
     return (
-      <Action disabledAction={!onClick} highlight={highlight} {...props}>
+      <Action highlight={highlight} {...props}>
         <IconContainer onClick={onClick} {...iconContainerProps}>
           <Icon {...iconProps} />
-          {title !== undefined && (
-            <Title unresponsive={unresponsive}>{title}</Title>
+          {content !== undefined && (
+            <Title unresponsive={unresponsive}>{content}</Title>
           )}
           {moreInfo && <MoreInfoIcon style={{ fontSize: '1.1rem' }} />}
         </IconContainer>
@@ -64,15 +59,15 @@ function ActionComponent({
   if (href && a && (placeholder || tooltip)) {
     return (
       <ActionA href={href} target="_blank" rel="noopener noreferrer">
-        <ActionTooltip title={placeholder || tooltip}>
+        <Tooltip content={placeholder || tooltip}>
           <IconContainer {...iconContainerProps}>
             <Icon {...iconProps} />
-            {title !== undefined && (
-              <Title unresponsive={unresponsive}>{title}</Title>
+            {content !== undefined && (
+              <Title unresponsive={unresponsive}>{content}</Title>
             )}
             {moreInfo && <MoreInfoIcon style={{ fontSize: '1.1rem' }} />}
           </IconContainer>
-        </ActionTooltip>
+        </Tooltip>
         {children}
       </ActionA>
     );
@@ -81,15 +76,15 @@ function ActionComponent({
   if (href && (placeholder || tooltip)) {
     return (
       <ActionLink to={href} {...props}>
-        <ActionTooltip title={placeholder || tooltip}>
+        <Tooltip content={placeholder || tooltip}>
           <IconContainer>
             <Icon {...iconProps} />
-            {title !== undefined && (
-              <Title unresponsive={unresponsive}>{title}</Title>
+            {content !== undefined && (
+              <Title unresponsive={unresponsive}>{content}</Title>
             )}
             {moreInfo && <MoreInfoIcon style={{ fontSize: '1.1rem' }} />}
           </IconContainer>
-        </ActionTooltip>
+        </Tooltip>
         {children}
       </ActionLink>
     );
@@ -99,8 +94,8 @@ function ActionComponent({
     <ActionLink to={href} {...props}>
       <IconContainer {...iconContainerProps}>
         <Icon {...iconProps} />
-        {title !== undefined && (
-          <Title unresponsive={unresponsive}>{title}</Title>
+        {content !== undefined && (
+          <Title unresponsive={unresponsive}>{content}</Title>
         )}
         {moreInfo && <MoreInfoIcon style={{ fontSize: '1.1rem' }} />}
       </IconContainer>
