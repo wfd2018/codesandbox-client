@@ -19,11 +19,19 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const Tooltip = ({ children, style = {}, placement = 'top', ...props }) => (
+const Tooltip = ({
+  children,
+  style = {},
+  css = ``,
+  placement = 'top',
+  ...props
+}) => (
   <React.Fragment>
     <GlobalStyle />
     <Tippy {...props} placement={placement}>
-      <span style={style}>{children}</span>
+      <span css={css} style={style}>
+        {children}
+      </span>
     </Tippy>
   </React.Fragment>
 );
