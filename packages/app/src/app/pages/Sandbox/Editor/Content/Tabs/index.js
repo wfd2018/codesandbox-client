@@ -109,6 +109,7 @@ class EditorTabs extends React.Component {
     const previewVisible = store.editor.previewWindow.content === 'browser';
     const consoleVisible = store.editor.previewWindow.content === 'console';
     const testsVisible = store.editor.previewWindow.content === 'tests';
+    const center = { display: 'inline-flex', alignItems: 'center' };
 
     return (
       <Container>
@@ -202,10 +203,7 @@ class EditorTabs extends React.Component {
         </TabsContainer>
 
         <IconContainer>
-          <Tooltip
-            style={{ display: 'inline-flex', alignItems: 'center' }}
-            content="Prettify"
-          >
+          <Tooltip style={center} content="Prettify">
             <StyledPrettierIcon
               disabled={!this.canPrettify(currentModule)}
               onClick={this.prettifyModule}
@@ -213,7 +211,10 @@ class EditorTabs extends React.Component {
           </Tooltip>
           <Line />
 
-          <Tooltip content={previewVisible ? 'Hide Browser' : 'Show Browser'}>
+          <Tooltip
+            style={center}
+            content={previewVisible ? 'Hide Browser' : 'Show Browser'}
+          >
             <IconWrapper active={previewVisible}>
               <PreviewIcon
                 onClick={() =>
@@ -228,7 +229,10 @@ class EditorTabs extends React.Component {
               />
             </IconWrapper>
           </Tooltip>
-          <Tooltip content={consoleVisible ? 'Hide Console' : 'Show Console'}>
+          <Tooltip
+            style={center}
+            content={consoleVisible ? 'Hide Console' : 'Show Console'}
+          >
             <IconWrapper active={consoleVisible}>
               <ConsoleIcon
                 onClick={() =>
@@ -243,7 +247,10 @@ class EditorTabs extends React.Component {
               />
             </IconWrapper>
           </Tooltip>
-          <Tooltip content={testsVisible ? 'Hide Tests' : 'Show Tests'}>
+          <Tooltip
+            style={center}
+            content={testsVisible ? 'Hide Tests' : 'Show Tests'}
+          >
             <IconWrapper active={testsVisible}>
               <TestsIcon
                 onClick={() =>
