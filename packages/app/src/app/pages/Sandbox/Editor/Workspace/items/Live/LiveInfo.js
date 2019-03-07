@@ -305,13 +305,13 @@ class LiveInfo extends React.Component {
                     owner.id !== currentUserId && (
                       <IconContainer>
                         {followingUserId === owner.id ? (
-                          <Tooltip title="Stop following">
+                          <Tooltip content="Stop following">
                             <UnFollowIcon
                               onClick={() => setFollowing({ liveUserId: null })}
                             />
                           </Tooltip>
                         ) : (
-                          <Tooltip title="Follow along">
+                          <Tooltip content="Follow along">
                             <FollowIcon
                               onClick={() =>
                                 setFollowing({ liveUserId: owner.id })
@@ -345,7 +345,7 @@ class LiveInfo extends React.Component {
                         {user.id !== currentUserId && (
                           <IconContainer>
                             {followingUserId === user.id ? (
-                              <Tooltip title="Stop following">
+                              <Tooltip content="Stop following">
                                 <UnFollowIcon
                                   onClick={() =>
                                     setFollowing({ liveUserId: null })
@@ -353,7 +353,7 @@ class LiveInfo extends React.Component {
                                 />
                               </Tooltip>
                             ) : (
-                              <Tooltip title="Follow along">
+                              <Tooltip content="Follow along">
                                 <FollowIcon
                                   onClick={() =>
                                     setFollowing({ liveUserId: user.id })
@@ -366,7 +366,7 @@ class LiveInfo extends React.Component {
                         {isOwner &&
                           roomInfo.mode === 'classroom' && (
                             <IconContainer style={{ marginLeft: '0.25rem' }}>
-                              <Tooltip title={'Make spectator'}>
+                              <Tooltip content={'Make spectator'}>
                                 <RemoveIcon
                                   onClick={() =>
                                     removeEditor({ liveUserId: user.id })
@@ -401,7 +401,7 @@ class LiveInfo extends React.Component {
                         user.id !== currentUserId && (
                           <IconContainer>
                             {followingUserId === user.id ? (
-                              <Tooltip title="Stop following">
+                              <Tooltip content="Stop following">
                                 <UnFollowIcon
                                   onClick={() =>
                                     setFollowing({ liveUserId: null })
@@ -409,7 +409,7 @@ class LiveInfo extends React.Component {
                                 />
                               </Tooltip>
                             ) : (
-                              <Tooltip title="Follow along">
+                              <Tooltip content="Follow along">
                                 <FollowIcon
                                   onClick={() =>
                                     setFollowing({ liveUserId: user.id })
@@ -422,7 +422,7 @@ class LiveInfo extends React.Component {
                       {isOwner &&
                         roomInfo.mode === 'classroom' && (
                           <IconContainer style={{ marginLeft: '0.25rem' }}>
-                            <Tooltip title={'Make editor'}>
+                            <Tooltip content={'Make editor'}>
                               <AddIcon
                                 onClick={() =>
                                   addEditor({ liveUserId: user.id })

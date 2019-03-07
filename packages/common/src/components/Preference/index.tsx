@@ -36,8 +36,6 @@ export type StringPreference = {
   setValue: SetValueT<string>;
 };
 
-
-
 export type DropdownPreference = {
   type: 'dropdown';
   options: string[];
@@ -118,7 +116,7 @@ export default class Preference extends React.Component<Props> {
     const { title, style, className, tooltip } = this.props;
 
     const Title = tooltip ? (
-      <Tooltip position="right" title={tooltip}>
+      <Tooltip placement="right" content={tooltip}>
         {title}
       </Tooltip>
     ) : (

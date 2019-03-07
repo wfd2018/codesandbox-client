@@ -103,7 +103,7 @@ class Problems extends React.PureComponent<*, State> {
                 <Path>{splittedPath.join('/')}/</Path>
                 <FileName>{fileName}</FileName>
                 <Actions>
-                  <Tooltip title="Open File">
+                  <Tooltip content="Open File">
                     <FileIcon onClick={() => this.openFile(file)} />
                   </Tooltip>
                 </Actions>

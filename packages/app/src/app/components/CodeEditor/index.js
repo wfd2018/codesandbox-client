@@ -188,7 +188,7 @@ export default class CodeEditor extends React.PureComponent<Props, State> {
         {config &&
           (getUI(config.type) ? (
             <Icons>
-              <Tooltip title="Switch to UI Configuration">
+              <Tooltip content="Switch to UI Configuration">
                 <Icon onClick={this.toggleConfigUI}>
                   <UIIcon />
                 </Icon>
@@ -198,12 +198,12 @@ export default class CodeEditor extends React.PureComponent<Props, State> {
             <Icons style={{ fontSize: '.875rem' }}>
               {config.partialSupportDisclaimer ? (
                 <Tooltip
-                  position="bottom"
-                  title={config.partialSupportDisclaimer}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                  }}
+                  placement="bottom"
+                  content={config.partialSupportDisclaimer}
+                  css={`
+                    display: flex;
+                    align-items: center;
+                  `}
                 >
                   Partially Supported Config{' '}
                   <QuestionIcon style={{ marginLeft: '.5rem' }} />

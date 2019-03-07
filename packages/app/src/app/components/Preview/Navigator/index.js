@@ -61,7 +61,7 @@ function Navigator({
           selected={alignDirection === 'bottom'}
           onClick={alignBottom}
         >
-          <Tooltip title="Dock to Bottom">
+          <Tooltip content="Dock to Bottom">
             <HorizontalAlign />
           </Tooltip>
         </Icon>
@@ -72,7 +72,7 @@ function Navigator({
           selected={alignDirection === 'right'}
           onClick={alignRight}
         >
-          <Tooltip title="Dock to Right">
+          <Tooltip content="Dock to Right">
             <VerticalAlign />
           </Tooltip>
         </Icon>
@@ -82,7 +82,7 @@ function Navigator({
           style={{ fontSize: 18, padding: 4, marginRight: zenMode ? 8 : 16 }}
           onClick={openNewWindow}
         >
-          <Tooltip title="Open In New Window">
+          <Tooltip content="Open In New Window">
             <ExternalIcon />
           </Tooltip>
         </Icon>
@@ -92,8 +92,8 @@ function Navigator({
         toggleProjectView && (
           <SwitchContainer>
             <Tooltip
-              title={isProjectView ? 'Project View' : 'Current Module View'}
-              position="left"
+              content={isProjectView ? 'Project View' : 'Current Module View'}
+              placement="left"
             >
               <Switch right={isProjectView} onClick={toggleProjectView} />
             </Tooltip>

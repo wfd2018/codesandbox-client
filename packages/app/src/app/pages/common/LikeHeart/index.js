@@ -15,7 +15,7 @@ function LikeHeart({ sandbox, store, signals, className, colorless }) {
     <Container loggedIn={store.isLoggedIn} className={className}>
       <MaybeTooltip
         loggedIn={store.isLoggedIn}
-        title={sandbox.userLiked ? 'Undo like' : 'Like'}
+        content={sandbox.userLiked ? 'Undo like' : 'Like'}
       >
         {sandbox.userLiked ? (
           <FullHeartIcon
